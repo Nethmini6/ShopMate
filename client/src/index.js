@@ -6,8 +6,8 @@ import { CartProvider } from './contexts/CartContext';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <CartProvider>
+    
       <App />
-    </CartProvider>
+   
   </BrowserRouter>
 );

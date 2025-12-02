@@ -1,13 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useCart } from '../contexts/CartContext';
+import React from "react";
+import { Link } from "react-router-dom";
+import '../App.css';
 
-export default function Navbar(){
-  const { state } = useCart();
-  const qty = state.items.reduce((s,i)=> s + i.qty, 0);
+function Navbar() {
   return (
-    <nav style={{ padding: 10, borderBottom: '1px solid #ddd' }}>
-      <Link to="/">Shop</Link> | <Link to="/cart">Cart ({qty})</Link>
-    </nav>
+    <header className="navbar">
+      <h2>SHOPMATE</h2>
+      <nav>
+        <Link to="/Home">Home</Link>
+        <Link to="/ProductPage">Product</Link>
+        <Link to="/LoginPage">Login</Link>
+        <Link to="/CartPage">Cart</Link>
+      </nav>
+    </header>
   );
 }
+
+export default Navbar;

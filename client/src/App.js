@@ -1,22 +1,55 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import Navbar from './components/Navbar';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import './App.css';
 
-function App(){
+function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <>
       <Navbar />
-      <main style={{ padding: 20 }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/cart" element={<CartPage />} />
-        </Routes>
-      </main>
+
+      <Routes>
+
+        {/* DEFAULT ROUTE — If logged in → Home, else → Login */}
+        <Route 
+          path="/" 
+          element={isLoggedIn ? <Navigate to="/home" /> : <Navigate to="/login" />} 
+        />
+
+        <Route 
+          path="/login" 
+          element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} 
+        />
+
+        <Route path="/signup" element={<SignupPage />} />
+
+        {/* PROTECTED ROUTES */}
+        <Route 
+          path="/home" 
+          element={isLoggedIn ? <Home /> : <Navigate to="/home" />} 
+        />
+
+        <Route 
+          path="/product" 
+          element={isLoggedIn ? <ProductPage /> : <Navigate to="/login" />} 
+        />
+
+        <Route 
+          path="/cart" 
+          element={isLoggedIn ? <CartPage /> : <Navigate to="/login" />} 
+        />
+
+      </Routes>
     </>
   );
 }
+
 export default App;
